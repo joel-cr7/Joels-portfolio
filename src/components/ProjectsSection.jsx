@@ -8,7 +8,7 @@ function ProjectsSection() {
       title: "IAS (Infinx Automation Solution)",
       description:
         "Team project at INFINX — a SaaS product designed to manage and run Robotic Process Automation (RPA). Worked on developing the backend, focusing on microservices communication, integration with AWS services, and implementing distributed locking and many more production features.",
-      image: "/projects/project1.png",
+      image: "/joels-portfolio/projects/project1.png",
       tags: [
         "Spring Boot",
         "AWS",
@@ -24,7 +24,7 @@ function ProjectsSection() {
       title: "Linkedin Backend Microservices",
       description:
         "Built social media backend microservice based application similar to Linkedin by managing several degree of user connections using graph DB, JWT based authentication, managing user posts, API Gateway and many more features.",
-      image: "/projects/project2.png",
+      image: "/joels-portfolio/projects/project2.png",
       tags: [
         "Spring Boot",
         "Kafka",
@@ -40,7 +40,7 @@ function ProjectsSection() {
       title: "Hotel Management Backend",
       description:
         "Full-featured hotel management and booking platform similar to AirBnb with user authentication, role-based access control and payment processing.",
-      image: "/projects/project3.png",
+      image: "/joels-portfolio/projects/project3.png",
       tags: [
         "Spring Boot",
         "PostgreSQL",
@@ -97,13 +97,13 @@ function ProjectsSection() {
               {/* Project icons */}
               <div className="p-6 flex space-x-3 mt-auto">
                 {project.demoUrl ? (
-                  <span
+                  <a
                     href={project.demoUrl}
                     target="_blank"
                     className="text-foreground/80 hover:text-primary transition-colors duration-300"
                   >
                     <ExternalLink className="cursor-pointer" size={20} />
-                  </span>
+                  </a>
                 ) : <span className="text-sm"><em>(Proprietary)</em></span> }
               </div>
             </div>

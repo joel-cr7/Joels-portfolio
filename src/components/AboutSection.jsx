@@ -28,7 +28,7 @@ function AboutSection() {
               </a>
 
               <a
-                href="/JoelMiranda_Resume.pdf"
+                href="/joels-portfolio/JoelMiranda_Resume.pdf"
                 download
                 className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/30 transition-colors duration-300"
               >
