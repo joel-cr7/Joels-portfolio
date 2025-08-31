@@ -1,0 +1,230 @@
+@import "tailwindcss";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Space Grotesk", sans-serif;
+    background: black;
+    color: #f3f4f6;
+}
+
+@theme {
+    /* define class names and their variables for theme (the values for these variables are defined in base @layer) 
+        Note: we are using hsl here for colour but we can also use rgb, etc
+
+        On the LHS we define color properties, animation properties, etc like --color-background, which can be used instead of built in colors
+        in tailwind. we can use it like bg-background instead of bg-red-500 (this will apply the color we defined in background variable on the RHS to the background)
+    */
+
+    --color-border: hsl(var(--border));
+    --color-background: hsl(var(--background));
+    --color-foreground: hsl(var(--foreground));
+
+    /* for text */
+    --color-primary: hsl(var(--primary));
+    --color-primary-foreground: hsl(var(--primary-foreground));
+
+    --color-card: hsl(var(--card));
+
+    /* define different amination names */
+    --animate-float: float 6s ease-in-out infinite;
+
+    /* for the stars twinkling */
+    --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
+
+    
+    --animate-fade-in: fade-in 0.7s ease-out forwards;
+    --animate-fade-in-1: fade-in 0.7s ease-out 0.2s forwards;
+    --animate-fade-in-2: fade-in 0.7s ease-out 0.4s forwards;
+    --animate-fade-in-3: fade-in 0.7s ease-out 0.6s forwards;
+    --animate-fade-in-4: fade-in 0.7s ease-out 0.8s forwards;
+    --animate-meteor: meteor 5s linear infinite;
+
+    @keyframes float {
+
+        /* for beginning and end */
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        /* for middle */
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes pulse-subtle {
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.4;
+        }
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes meteor {
+        0%{
+            transform: rotate(215deg) translateX(0);
+            opacity: 1;
+        }
+        70%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+            transform: rotate(215deg) translateX(-500px);
+        }
+    }
+
+}
+
+
+@layer base {
+    :root {
+        --background: 210 40% 98%;
+        --foreground: 222 47% 11%;
+
+        --card: 0 0% 100%;
+        --primary: 250 47% 60%;
+        --primary-foreground: 210 40% 98%;
+
+        --border: 214 32% 91%;
+    }
+
+    .dark {
+        --background: 222 47% 4%;
+        --foreground: 213 31% 91%;
+
+        --card: 222 47% 8%;
+        --primary: 250 65% 65%;
+        --primary-foreground: 213 91% 91%;
+
+        --border: 217 33% 20%;
+    }
+
+    * {
+        @apply border-border;
+    }
+
+    html {
+        @apply scroll-smooth;
+    }
+
+    body {
+        @apply text-foreground transition-colors duration-300;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+}
+
+
+@layer utilities {
+
+    /* For blinking cursor at LoadingScreen component */
+    @keyframes blink {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+    }
+
+    .animate-blink {
+        animation: blink 0.8s step-end infinite;
+    }
+
+    /* for loading bar on LoadingScreen component */
+    @keyframes loading {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(250%);
+        }
+    }
+
+    .animate-loading-bar {
+        animation: loading 0.8s ease infinite;
+    }
+}
+
+/* creating custom defined utility class that can be used */
+@utility container{
+    margin-inline: auto;
+    padding-inline: 2rem;
+    @media (wdth >= 640) {
+        max-width: 640px;
+    }    
+    @media (wdth >= 768) {
+        max-width: 640px;
+    }
+    @media (wdth >= 1024) {
+        max-width: 1024px;
+    }
+    @media (wdth >= 1288) {
+        max-width: 1288px;
+    }    
+    @media (wdth >= 1400) {
+        max-width: 1400px;
+    }
+}
+
+
+@utility text-glow {
+    /* @apply allows to use tailwind utility classes and we can also define custom css properties */
+    @apply relative;
+    text-shadow: 0 0 20px rgba(126, 74, 251, 0.5);
+}
+
+@utility card-hover {
+    @apply transition-transform shadow-sm duration-300 hover:scale-[1.07] hover:shadow-lg;
+}
+
+@utility gradient-border {
+    @apply relative rounded-md;
+    background: hsl(var(--card));
+    background-clip: padding-box;
+    border: 1px solid transparent;
+}
+
+@utility cosmic-button {
+    /* below are are using the colors defined under theme (primary, primary-foreground) */
+    @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
+            transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)] 
+            hover:scale-105 active:scale-95;
+}
+
+@utility star {
+    @apply absolute rounded-full bg-white;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+}
+
+@utility meteor {
+    @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+}
+
+#root {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
